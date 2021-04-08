@@ -8,7 +8,9 @@ async function getCollection() {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        localDB.push(doc.data());
+        const item = doc.data();
+        item.id = doc.id;
+        localDB.push(item);
       });
     })
     .catch((error) => {
@@ -22,17 +24,38 @@ getCollection();
 const uiCreateForm = document.querySelector(".create-form");
 const uiSearchForm = document.querySelector(".search-form");
 const uiResultsList = document.querySelector(".results-list");
+const uiShopLists = document.querySelector(".shoplists");
 const tabs = document.querySelector(".tabs");
 const tabSearch = document.querySelector("#tabSearch");
 const tabCreate = document.querySelector("#tabCreate");
+const tabShopLists = document.querySelector("#tabLists");
+const sections = [uiSearchForm, uiResultsList, uiCreateForm, uiShopLists];
 
 tabs.addEventListener("click", (e) => {
-  if (tabCreate.checked) {
-    uiSearchForm.classList.add("hidden");
-    uiCreateForm.classList.remove("hidden");
-  } else if (tabSearch.checked) {
-    uiSearchForm.classList.remove("hidden");
-    uiCreateForm.classList.add("hidden");
+  e.preventDefault();
+  if (
+    e.target.classList.contains("tabBtn") &&
+    !e.target.classList.contains("tabCurrent")
+  ) {
+    document.querySelectorAll(".tabBtn").forEach((btn) => {
+      btn.classList.remove("tabCurrent");
+    });
+    e.target.classList.add("tabCurrent");
+
+    sections.forEach((section) => {
+      section.classList.add("hidden");
+    });
+
+    if (e.target === tabSearch) {
+      uiSearchForm.classList.remove("hidden");
+      uiResultsList.classList.remove("hidden");
+    }
+    if (e.target === tabCreate) {
+      uiCreateForm.classList.remove("hidden");
+    }
+    if (e.target === tabShopLists) {
+      uiShopLists.classList.remove("hidden");
+    }
   }
 });
 
@@ -40,17 +63,18 @@ uiCreateForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const newItem = {
-    product: e.target.createProduct.value,
-    brand: e.target.createBrand.value,
-    detail: e.target.createDetail.value,
-    shop: e.target.createShop.value,
-    volume: e.target.createVolume.value,
-    price: Number(e.target.createPrice.value),
-    kgprice: Number(e.target.createKgprice.value),
+    product: e.target.createProduct.value.trim(),
+    brand: e.target.createBrand.value.trim(),
+    detail: e.target.createDetail.value.trim(),
+    shop: e.target.createShop.value.trim(),
+    volume: e.target.createVolume.value.trim(),
+    price: Number(e.target.createPrice.value.trim()),
+    kgprice: Number(e.target.createKgprice.value.trim()),
   };
 
   console.log(newItem);
   addToDB(newItem);
+  getCollection();
 
   e.target.reset();
 });
@@ -71,6 +95,7 @@ function output(query) {
       const kgprice = item.kgprice ? item.kgprice.toFixed(2) + "€" : "---";
       const li = document.createElement("LI");
       li.classList.add("results-list-item");
+      li.dataset.ref = item.id;
       li.innerHTML = `
     <h2 class="item-product">${item.product}</h2>
       <h3 class="item-brand">${item.brand}</h3>

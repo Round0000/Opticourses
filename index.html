@@ -11,19 +11,24 @@
   <div class="container">
 
  <div class="tabs">
-   <input type="radio" name="tab" id="tabSearch" checked />
-   <label for="tabSearch">Search</label>
-   <input type="radio" name="tab" id="tabCreate" />
-   <label for="tabCreate">Create</label>
+   <button id="tabSearch" class="tabBtn tabCurrent">Search</button>
+   <button id="tabCreate" class="tabBtn">Create</button>
+   <button id="tabLists" class="tabBtn">Lists</button>
+ </div>
+
+ <div class="shoplists hidden">
+   <ul>
+
+   </ul>
  </div>
 
   <form class="create-form hidden">
     <h2>Add a product</h2>
-    <label>Product<input type="text" id="createProduct" required></label>
-    <label>Brand<input type="text" id="createBrand"></label>
-    <label>Detail<input type="text" id="createDetail"></label>
-    <label>Shop<input type="text" id="createShop" required></label>
-    <label>Volume<input type="text" id="createVolume"></label>
+    <label>Product<input type="text" maxlength="24" id="createProduct" required></label>
+    <label>Brand<input type="text" maxlength="24" id="createBrand"></label>
+    <label>Detail<input type="text" maxlength="40" id="createDetail"></label>
+    <label>Shop<input type="text" maxlength="24" id="createShop" required></label>
+    <label>Volume<input type="text" maxlength="8" id="createVolume"></label>
     <label>Price<input type="number" min="0" step=".01" id="createPrice" required></label>
     <label>Price/kg<input type="number" min="0" step=".01" id="createKgprice"></label>
     <input type="submit" value="Submit">
