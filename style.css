@@ -9,6 +9,10 @@ body {
   background-color: #1b2f3e;
 }
 
+.hidden {
+  display: none;
+}
+
 .container {
   padding: 20px;
   display: flex;
@@ -17,7 +21,7 @@ body {
 }
 
 .create-form,
-.search-form, 
+.search-form,
 .tabs {
   width: 320px;
   background-color: #a1bfd5;
@@ -38,6 +42,8 @@ body {
   text-align: center;
   flex: 1;
   background-color: #fff5;
+  user-select: none;
+  cursor: pointer;
 }
 
 .tabs input {

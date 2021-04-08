@@ -22,6 +22,19 @@ getCollection();
 const uiCreateForm = document.querySelector(".create-form");
 const uiSearchForm = document.querySelector(".search-form");
 const uiResultsList = document.querySelector(".results-list");
+const tabs = document.querySelector(".tabs");
+const tabSearch = document.querySelector("#tabSearch");
+const tabCreate = document.querySelector("#tabCreate");
+
+tabs.addEventListener("click", (e) => {
+  if (tabCreate.checked) {
+    uiSearchForm.classList.add("hidden");
+    uiCreateForm.classList.remove("hidden");
+  } else if (tabSearch.checked) {
+    uiSearchForm.classList.remove("hidden");
+    uiCreateForm.classList.add("hidden");
+  }
+});
 
 uiCreateForm.addEventListener("submit", (e) => {
   e.preventDefault();
