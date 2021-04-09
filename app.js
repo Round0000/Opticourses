@@ -59,6 +59,11 @@ tabs.addEventListener("click", (e) => {
   }
 });
 
+uiResultsList.addEventListener("click", (e) => {
+  const selected = e.target.closest(".results-list-item");
+  selected.classList.toggle("selected");
+});
+
 uiCreateForm.addEventListener("submit", (e) => {
   e.preventDefault();
 

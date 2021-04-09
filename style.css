@@ -116,6 +116,46 @@ input[type="submit"] {
   border-radius: 4px;
   background: linear-gradient(-45deg, #fff5e8, #f8fafc);
   color: #162633;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.selected .item-actions {
+  transform: unset;
+}
+
+.item-actions {
+  display: flex;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  transition: 0.3s;
+}
+
+.item-actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  margin: 3px;
+  padding: 6px 8px;
+  border: none;
+  background-color: #a1bfd5;
+  color: #222;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.item-actions button:hover,
+.item-actions button:focus {
+  background-color: #a1bfd5;
+  color: #222;
 }
 
 .results-list-item:nth-of-type(even) {
