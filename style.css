@@ -119,6 +119,8 @@ input[type="submit"] {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 5em;
 }
 
 .selected .item-actions {
@@ -182,7 +184,10 @@ input[type="submit"] {
 
 .item-values {
   display: flex;
+  flex-direction: column;
   margin-top: 6px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 5;
 }
 
 .item-values * {
@@ -190,9 +195,9 @@ input[type="submit"] {
   outline: 1px solid #2225;
   padding: 0.2em 0.4em;
   background: #fff;
+  text-align: right;
 }
 
-.item-price,
-.item-kgprice {
+.item-price {
   font-weight: bold;
 }

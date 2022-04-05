@@ -95,7 +95,11 @@ uiSearchForm.addEventListener("submit", (e) => {
 function output(query) {
   uiResultsList.innerHTML = "";
   localDB.forEach((item) => {
-    if (item.product.toUpperCase().includes(query)) {
+    if (
+      item.product.toUpperCase().includes(query) ||
+      item.brand.toUpperCase().includes(query) ||
+      item.detail.toUpperCase().includes(query)
+    ) {
       const price = item.price ? item.price.toFixed(2) + "€" : "---";
       const kgprice = item.kgprice ? item.kgprice.toFixed(2) + "€" : "---";
       const li = document.createElement("LI");
