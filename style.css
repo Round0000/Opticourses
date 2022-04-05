@@ -59,6 +59,7 @@ body {
 .search-form * {
   height: 2em;
   min-width: 60px;
+  padding: .25em;
 }
 
 .search-form {
@@ -78,16 +79,19 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2em;
-  font-size: 0.8rem;
+  margin-bottom: 1em;
+  font-size: 0.9rem;
   font-weight: bold;
   outline: 1px solid #fff;
   padding-left: 0.5em;
+  padding-right: 0;
   background-color: #fff9;
+  box-shadow: 1px 1px 2px #0005;
 }
 
 .create-form input {
   max-width: 60%;
+  font-size: inherit;
 }
 
 form input {
@@ -98,7 +102,8 @@ form input {
 input[type="submit"] {
   display: block;
   margin-left: auto;
-  width: 70px;
+  cursor: pointer;
+  box-shadow: 0 2px 3px #0004;
 }
 
 .results-list {
@@ -124,40 +129,62 @@ input[type="submit"] {
 }
 
 .selected .item-actions {
-  transform: unset;
+  visibility: visible;
 }
 
 .item-actions {
+  visibility: hidden;
   display: flex;
   background-color: #fff;
   border: 1px solid #ddd;
   position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  transform: translateY(100%);
-  transition: 0.3s;
+  inset: 0;
+  margin: 0 !important;
 }
 
 .item-actions button {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  font-size: 1rem;
+  gap: .5em;
   flex: 1;
-  margin: 3px;
-  padding: 6px 8px;
+  margin: .4em;
+  padding: .25em;
   border: none;
-  background-color: #a1bfd5;
+  background-color: #a1bfd599;
   color: #222;
   cursor: pointer;
-  font-weight: bold;
+  box-shadow: 0 2px 2px #0005;
+}
+
+.item-actions .closeActions {
+  align-self: flex-start;
+  flex: 0;
+  width: 2em;
+  height: 2em;
+  background-color: whitesmoke;
+  border: 1px solid tomato;
+  color: tomato;
+  border-radius: 4px;
+}
+
+.closeActions svg {
+  width: 1.5em;
+  height: 1.5em;
+  pointer-events: none;
 }
 
 .item-actions button:hover,
 .item-actions button:focus {
   background-color: #a1bfd5;
   color: #222;
+}
+
+.item-actions .closeActions:hover,
+.item-actions .closeActions:focus {
+  background-color: #fff;
 }
 
 .results-list-item:nth-of-type(even) {

@@ -61,7 +61,17 @@ tabs.addEventListener("click", (e) => {
 
 uiResultsList.addEventListener("click", (e) => {
   const selected = e.target.closest(".results-list-item");
-  selected.classList.toggle("selected");
+
+  if (e.target.matches(".closeActions")) {
+    selected.classList.remove("selected");
+    return;
+  }
+
+  if (e.target.matches(".itemClone")) {
+    cloneProduct(localDB.find((item) => item.id === selected.dataset.ref));
+  }
+
+  selected.classList.add("selected");
 });
 
 uiCreateForm.addEventListener("submit", (e) => {
@@ -115,6 +125,25 @@ function output(query) {
         <p class="item-price">${price}</p>
         <p class="item-kgprice">${kgprice}</p>
       </div>
+      <div class="item-actions">
+          <button class="itemEdit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg> Edit</button>
+          <button class="itemClone"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg> Clone</button>
+          <button class="itemAddToList"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" />
+            </svg> Add to list</button>
+            <button class="closeActions"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"></path></svg></button>
+        </div>
   `;
       uiResultsList.append(li);
     }
@@ -132,4 +161,26 @@ function addToDB(item) {
     .catch((error) => {
       console.error("Error adding document: ", error);
     });
+}
+
+// Clone product
+function cloneProduct(obj) {
+  document.querySelectorAll(".tabBtn").forEach((btn) => {
+    btn.classList.remove("tabCurrent");
+  });
+  tabCreate.classList.add("tabCurrent");
+
+  sections.forEach((section) => {
+    section.classList.add("hidden");
+  });
+
+  uiCreateForm.product.value = obj.product;
+  uiCreateForm.brand.value = obj.brand;
+  uiCreateForm.detail.value = obj.detail;
+  uiCreateForm.shop.value = obj.shop;
+  uiCreateForm.volume.value = obj.volume;
+  uiCreateForm.price.value = obj.price;
+  uiCreateForm.kgprice.value = obj.kgprice;
+
+  uiCreateForm.classList.remove("hidden");
 }
