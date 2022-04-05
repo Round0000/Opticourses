@@ -69,6 +69,14 @@ uiResultsList.addEventListener("click", (e) => {
 
   if (e.target.matches(".itemClone")) {
     cloneProduct(localDB.find((item) => item.id === selected.dataset.ref));
+    selected.classList.remove("selected");
+    return;
+  }
+
+  if (e.target.matches(".itemEdit")) {
+    // editProduct(localDB.find((item) => item.id === selected.dataset.ref));
+    selected.classList.remove("selected");
+    return;
   }
 
   selected.classList.add("selected");
@@ -174,6 +182,12 @@ function cloneProduct(obj) {
     section.classList.add("hidden");
   });
 
+  populateForm(obj);
+
+  uiCreateForm.classList.remove("hidden");
+}
+
+function populateForm(obj) {
   uiCreateForm.product.value = obj.product;
   uiCreateForm.brand.value = obj.brand;
   uiCreateForm.detail.value = obj.detail;
@@ -181,6 +195,12 @@ function cloneProduct(obj) {
   uiCreateForm.volume.value = obj.volume;
   uiCreateForm.price.value = obj.price;
   uiCreateForm.kgprice.value = obj.kgprice;
+}
+
+function editProduct(obj) {
+  populateForm(obj);
 
   uiCreateForm.classList.remove("hidden");
 }
+
+// db.collection('opticourses').doc('ASM1617897266303').update({ product: "Adoucissant" })
